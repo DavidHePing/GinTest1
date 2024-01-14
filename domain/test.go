@@ -2,8 +2,8 @@ package domain
 
 type TestUseCase interface {
 	GetTest() string
-	GetTestById(id string) string
+	GetTestById(id int) string
 	PostTest() string
-	PatchTest(id string) string
-	DeleteTest(id string) string
+	PatchTest(id int) string
+	DeleteTest(id int) string
 }

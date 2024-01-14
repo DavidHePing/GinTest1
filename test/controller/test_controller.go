@@ -3,6 +3,7 @@ package controller
 import (
 	"GinTest1/domain"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -39,7 +40,13 @@ func (controller *TestController) getTest(ctx *gin.Context) {
 // @Success 200 {string} Test Get
 // @Router /test/{id} [get]
 func (controller *TestController) getTestById(ctx *gin.Context) {
-	id := ctx.Param("id")
+	id, err := strconv.Atoi(ctx.Param("id"))
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+		return
+	}
+
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
 
@@ -61,7 +68,13 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 // @Success 200 {string} Test Get
 // @Router /test/{id} [patch]
 func (controller *TestController) patchTest(ctx *gin.Context) {
-	id := ctx.Param("id")
+	id, err := strconv.Atoi(ctx.Param("id"))
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+		return
+	}
+
 	ctx.JSON(http.StatusOK, controller.testUsecase.PatchTest(id))
 }
 
@@ -73,6 +86,12 @@ func (controller *TestController) patchTest(ctx *gin.Context) {
 // @Success 200 {string} Test Get
 // @Router /test/{id} [delete]
 func (controller *TestController) deleteTest(ctx *gin.Context) {
-	id := ctx.Param("id")
+	id, err := strconv.Atoi(ctx.Param("id"))
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+		return
+	}
+
 	ctx.JSON(http.StatusOK, controller.testUsecase.DeleteTest(id))
 }
