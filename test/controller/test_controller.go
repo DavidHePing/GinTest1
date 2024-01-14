@@ -2,6 +2,7 @@ package controller
 
 import (
 	"GinTest1/domain"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +28,7 @@ func NewTestController(testUseCase domain.TestUseCase, router *gin.RouterGroup) 
 // @Success 200 {string} Test Get
 // @Router /test [get]
 func (controller *TestController) getTest(ctx *gin.Context) {
-	ctx.JSON(200, controller.testUsecase.GetTest())
+	ctx.JSON(http.StatusOK, controller.testUsecase.GetTest())
 }
 
 // @Schemes
@@ -39,7 +40,7 @@ func (controller *TestController) getTest(ctx *gin.Context) {
 // @Router /test/{id} [get]
 func (controller *TestController) getTestById(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(200, controller.testUsecase.GetTestById(id))
+	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
 
 // @Schemes
@@ -49,7 +50,7 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 // @Success 200 {string} Test Get
 // @Router /test [post]
 func (controller *TestController) postTest(ctx *gin.Context) {
-	ctx.JSON(200, controller.testUsecase.PostTest())
+	ctx.JSON(http.StatusOK, controller.testUsecase.PostTest())
 }
 
 // @Schemes
@@ -61,7 +62,7 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 // @Router /test/{id} [patch]
 func (controller *TestController) patchTest(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(200, controller.testUsecase.PatchTest(id))
+	ctx.JSON(http.StatusOK, controller.testUsecase.PatchTest(id))
 }
 
 // @Schemes
@@ -73,5 +74,5 @@ func (controller *TestController) patchTest(ctx *gin.Context) {
 // @Router /test/{id} [delete]
 func (controller *TestController) deleteTest(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(200, controller.testUsecase.DeleteTest(id))
+	ctx.JSON(http.StatusOK, controller.testUsecase.DeleteTest(id))
 }
