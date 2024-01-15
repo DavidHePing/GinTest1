@@ -45,6 +45,17 @@ const docTemplate = `{
                 "tags": [
                     "test"
                 ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TestModel"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -129,6 +140,15 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TestModel"
+                        }
                     }
                 ],
                 "responses": {
@@ -138,6 +158,24 @@ const docTemplate = `{
                             "type": "string"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.TestModel": {
+            "type": "object",
+            "required": [
+                "Name",
+                "Number"
+            ],
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Number": {
+                    "description": "cannot be default if required",
+                    "type": "integer"
                 }
             }
         }

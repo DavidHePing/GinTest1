@@ -54,7 +54,8 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 // @Tags test
 // @Accept json
 // @Produce json
-// @Success 200 {string} Test Get
+// @Success 200 {string} Test Post
+// @Param request body domain.TestModel true "Request"
 // @Router /test [post]
 func (controller *TestController) postTest(ctx *gin.Context) {
 	var request domain.TestModel
@@ -62,6 +63,7 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 	err := ctx.ShouldBind(&request)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, "Bad Request!!!")
+		return
 	}
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.PostTest(request))
@@ -72,7 +74,8 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path int true "Id"
-// @Success 200 {string} Test Get
+// @Success 200 {string} Test Patch
+// @Param request body domain.TestModel true "Request"
 // @Router /test/{id} [patch]
 func (controller *TestController) patchTest(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
@@ -82,7 +85,15 @@ func (controller *TestController) patchTest(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, controller.testUsecase.PatchTest(id))
+	var request domain.TestModel
+
+	err = ctx.ShouldBind(&request)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, "Bad Request!!!")
+		return
+	}
+
+	ctx.JSON(http.StatusOK, controller.testUsecase.PatchTest(id, request))
 }
 
 // @Schemes
@@ -90,7 +101,7 @@ func (controller *TestController) patchTest(ctx *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path int true "Id"
-// @Success 200 {string} Test Get
+// @Success 200 {string} Test Delete
 // @Router /test/{id} [delete]
 func (controller *TestController) deleteTest(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))

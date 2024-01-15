@@ -1,3 +1,15 @@
+definitions:
+  domain.TestModel:
+    properties:
+      Name:
+        type: string
+      Number:
+        description: cannot be default if required
+        type: integer
+    required:
+    - Name
+    - Number
+    type: object
 info:
   contact: {}
 paths:
@@ -17,6 +29,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TestModel'
       produces:
       - application/json
       responses:
@@ -72,6 +91,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TestModel'
       produces:
       - application/json
       responses:

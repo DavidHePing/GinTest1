@@ -19,11 +19,11 @@ func (*testUseCase) GetTestById(id int) string {
 	return fmt.Sprint("Test Get id = ", id)
 }
 func (*testUseCase) PostTest(testModel domain.TestModel) string {
-	return fmt.Sprint("Test Post", testModel)
+	return fmt.Sprint("Test Post ", testModel)
 }
 
-func (*testUseCase) PatchTest(id int) string {
-	return fmt.Sprint("Test Patch id = ", id)
+func (*testUseCase) PatchTest(id int, testModel domain.TestModel) string {
+	return fmt.Sprint("Test Patch id = ", id, " Body is: ", testModel)
 }
 
 func (*testUseCase) DeleteTest(id int) string {
