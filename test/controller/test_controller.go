@@ -57,7 +57,14 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 // @Success 200 {string} Test Get
 // @Router /test [post]
 func (controller *TestController) postTest(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, controller.testUsecase.PostTest())
+	var request domain.TestModel
+
+	err := ctx.ShouldBind(&request)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, "Bad Request!!!")
+	}
+
+	ctx.JSON(http.StatusOK, controller.testUsecase.PostTest(request))
 }
 
 // @Schemes
