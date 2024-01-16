@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type TestController struct {
@@ -50,6 +51,10 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 
 	headerIp := ctx.Request.Header.Get("X-Request-Id")
 	log.Println("header ip:", headerIp)
+
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+	logger.Info("header ip:" + headerIp)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
