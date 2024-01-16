@@ -44,7 +44,7 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err)
+		ctx.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Bad Request!!!"})
 		return
 	}
 
@@ -66,7 +66,7 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 
 	err := ctx.ShouldBind(&request)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, "Bad Request!!!")
+		ctx.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Bad Request!!!"})
 		return
 	}
 
@@ -93,7 +93,7 @@ func (controller *TestController) patchTest(ctx *gin.Context) {
 
 	err = ctx.ShouldBind(&request)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, "Bad Request!!!")
+		ctx.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Bad Request!!!"})
 		return
 	}
 
