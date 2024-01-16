@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GinTest1/route"
+	"GinTest1/api/route"
 
 	"github.com/gin-gonic/gin"
 )

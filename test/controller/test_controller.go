@@ -2,6 +2,7 @@ package controller
 
 import (
 	"GinTest1/domain"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -46,6 +47,9 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
+
+	headerIp := ctx.Request.Header.Get("X-Request-Id")
+	fmt.Println(headerIp)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }

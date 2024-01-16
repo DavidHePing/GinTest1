@@ -1,6 +1,7 @@
 package route
 
 import (
+	"GinTest1/api/middleware"
 	"GinTest1/test/controller"
 	"GinTest1/test/usecase"
 
@@ -13,5 +14,6 @@ func SetUp(gin *gin.Engine) {
 	HealthRouter(router)
 
 	apiRouter := gin.Group("api/v1")
+	apiRouter.Use(middleware.IpMiddleware())
 	controller.NewTestController(usecase.NewTestUseCase(), apiRouter)
 }
