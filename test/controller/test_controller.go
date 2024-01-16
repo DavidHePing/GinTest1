@@ -50,11 +50,12 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 	}
 
 	headerIp := ctx.Request.Header.Get("X-Request-Id")
-	log.Println("header ip:", headerIp)
+	headerIp2 := ctx.Request.Header.Get("X-Customer-Header")
+	log.Println("header ip:", headerIp, "customer header:", headerIp2)
 
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
-	logger.Info("header ip:" + headerIp)
+	logger.Info("header ip:" + headerIp + "customer header:" + headerIp2)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
