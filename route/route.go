@@ -10,6 +10,7 @@ import (
 func SetUp(gin *gin.Engine) {
 	router := gin.Group("")
 	SwaggerRouter(router)
+	HealthRouter(router)
 
 	apiRouter := gin.Group("api/v1")
 	controller.NewTestController(usecase.NewTestUseCase(), apiRouter)
