@@ -2,7 +2,7 @@ package controller
 
 import (
 	"GinTest1/domain"
-	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -49,7 +49,7 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 	}
 
 	headerIp := ctx.Request.Header.Get("X-Request-Id")
-	fmt.Println(headerIp)
+	log.Println("header ip:", headerIp)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
@@ -66,6 +66,8 @@ func (controller *TestController) postTest(ctx *gin.Context) {
 
 	err := ctx.ShouldBind(&request)
 	if err != nil {
+		log.Println("postTest bind request Error!", err)
+
 		ctx.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Bad Request!!!"})
 		return
 	}
