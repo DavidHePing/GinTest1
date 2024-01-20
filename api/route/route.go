@@ -10,7 +10,7 @@ import (
 )
 
 func SetUp(gin *gin.Engine) {
-	file_logger := customer_logger.InitLogger()
+	fileLogger := customer_logger.InitLogger()
 
 	router := gin.Group("")
 	SwaggerRouter(router)
@@ -18,5 +18,5 @@ func SetUp(gin *gin.Engine) {
 
 	apiRouter := gin.Group("api/v1")
 	apiRouter.Use(middleware.IpMiddleware())
-	controller.NewTestController(usecase.NewTestUseCase(), file_logger, apiRouter)
+	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
 }
