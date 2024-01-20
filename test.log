@@ -1,1 +1,1 @@
-{"level":"info","ts":1705765710.39108,"caller":"controller/test_controller.go:58","msg":"header ip:123.123.123customer header:123.123.123"}
+{"level":"info","ts":"2024-01-20T23:54:45.000+0800","caller":"controller/test_controller.go:58","msg":"header ip:123.123.123customer header:123.123.123"}
