@@ -9,11 +9,12 @@ import (
 )
 
 func InitLogger() (fileLogger *zap.Logger) {
-	createFileWithDir("./test.log")
+	filePath := "./logs/test.log"
+	createFileWithDir(filePath)
 
 	config := zap.NewProductionConfig()
 	config.Encoding = "json"
-	config.OutputPaths = []string{"./test.log"}
+	config.OutputPaths = []string{filePath}
 	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	fileLogger, _ = config.Build()
