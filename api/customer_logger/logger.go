@@ -10,7 +10,7 @@ import (
 
 func InitLogger() (fileLogger *zap.Logger) {
 	filePath := "./logs/test.log"
-	createFileWithDir(filePath)
+	createFileWithDirectory(filePath)
 
 	config := zap.NewProductionConfig()
 	config.Encoding = "json"
@@ -21,7 +21,7 @@ func InitLogger() (fileLogger *zap.Logger) {
 	return
 }
 
-func createFileWithDir(filePath string) {
+func createFileWithDirectory(filePath string) {
 	// Create the directory along with any necessary parents
 	dir := filepath.Dir(filePath)
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
