@@ -12,10 +12,11 @@ import (
 
 type TestController struct {
 	testUsecase domain.TestUseCase
+	logger      *zap.Logger
 }
 
-func NewTestController(testUseCase domain.TestUseCase, router *gin.RouterGroup) {
-	controller := &TestController{testUsecase: testUseCase}
+func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, router *gin.RouterGroup) {
+	controller := &TestController{testUsecase: testUseCase, logger: logger}
 
 	router.GET("/test", controller.getTest)
 	router.GET("/test/:id", controller.getTestById)
@@ -53,9 +54,8 @@ func (controller *TestController) getTestById(ctx *gin.Context) {
 	headerIp2 := ctx.Request.Header.Get("X-Customer-Header")
 	log.Println("header ip:", headerIp, "customer header:", headerIp2)
 
-	logger, _ := zap.NewProduction()
-	defer logger.Sync()
-	logger.Info("header ip:" + headerIp + "customer header:" + headerIp2)
+	defer controller.logger.Sync()
+	controller.logger.Info("header ip:" + headerIp + "customer header:" + headerIp2)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTestById(id))
 }
