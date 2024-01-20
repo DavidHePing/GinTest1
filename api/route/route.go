@@ -12,8 +12,8 @@ import (
 func SetUp(gin *gin.Engine) {
 	config := zap.NewProductionConfig()
 	config.Encoding = "json"
-	config.OutputPaths = []string{"./logs/test.log"}
-	config.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
+	config.OutputPaths = []string{"./test.log"}
+	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 	logger, _ := config.Build()
 
 	router := gin.Group("")
