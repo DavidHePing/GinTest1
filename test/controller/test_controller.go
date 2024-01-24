@@ -8,7 +8,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
+
+type Car struct {
+	Id   int `gorm:"primaryKey"`
+	Name string
+}
 
 type TestController struct {
 	testUsecase domain.TestUseCase
@@ -32,6 +39,17 @@ func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, route
 // @Success 200 {string} Test Get
 // @Router /test [get]
 func (controller *TestController) getTest(ctx *gin.Context) {
+	connect_string := "host=localhost user=admin password=1234 dbname=testDb port=5432"
+	db, err := gorm.Open(postgres.Open(connect_string), &gorm.Config{})
+
+	if err != nil {
+		controller.fileLogger.Error("Db coonect Error!!!")
+		ctx.JSON(http.StatusInternalServerError, "AAAA")
+	}
+
+	var car Car
+	db.First(&car, 1)
+
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTest())
 }
 
