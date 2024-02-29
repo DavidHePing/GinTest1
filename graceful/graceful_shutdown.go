@@ -15,7 +15,7 @@ import (
 func GracefulShutdown(gin *gin.Engine) {
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    ":8088",
 		Handler: gin,
 	}
 
