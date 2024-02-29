@@ -41,10 +41,10 @@ func GracefulShutdown(gin *gin.Engine) {
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
+
 	// catching ctx.Done(). timeout of 100 seconds.
-	select {
-	case <-ctx.Done():
-		log.Println("timeout of 100 seconds.")
-	}
+	<-ctx.Done()
+	log.Println("timeout of 100 seconds.")
+
 	log.Println("Server exiting")
 }

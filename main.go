@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GinTest1/api/graceful"
 	"GinTest1/api/route"
+	"GinTest1/graceful"
 
 	"github.com/gin-gonic/gin"
 )
