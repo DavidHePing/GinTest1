@@ -1,4 +1,4 @@
-package customer_logger
+package log
 
 import (
 	"os"

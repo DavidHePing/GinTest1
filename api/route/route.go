@@ -1,16 +1,16 @@
 package route
 
 import (
-	"GinTest1/api/customer_logger"
+	"GinTest1/api/controller"
 	"GinTest1/api/middleware"
-	"GinTest1/test/controller"
-	"GinTest1/test/usecase"
+	"GinTest1/log"
+	"GinTest1/usecase"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetUp(gin *gin.Engine) {
-	fileLogger := customer_logger.InitLogger()
+	fileLogger := log.InitLogger()
 
 	router := gin.Group("")
 	SwaggerRouter(router)
