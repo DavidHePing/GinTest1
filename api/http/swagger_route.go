@@ -1,4 +1,4 @@
-package route
+package http
 
 import (
 	"GinTest1/docs"

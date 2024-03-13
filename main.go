@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GinTest1/api/route"
+	"GinTest1/api/http"
 	"GinTest1/graceful"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +9,7 @@ import (
 
 func main() {
 	gin := gin.Default()
-	route.SetUp(gin)
+	http.SetUp(gin)
 
 	graceful.GracefulShutdown(gin)
 }
