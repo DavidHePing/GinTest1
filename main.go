@@ -1,15 +1,14 @@
 package main
 
 import (
-	"GinTest1/api/http"
-	"GinTest1/graceful"
+	"GinTest1/setup"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	gin := gin.Default()
-	http.SetUp(gin)
+	setup.SetUp(gin)
 
-	graceful.GracefulShutdown(gin)
+	setup.GracefulShutdown(gin)
 }

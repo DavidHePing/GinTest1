@@ -1,4 +1,4 @@
-package graceful
+package setup
 
 import (
 	"context"
