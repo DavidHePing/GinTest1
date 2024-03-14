@@ -4,7 +4,9 @@ import (
 	"GinTest1/api/controller"
 	"GinTest1/api/http"
 	"GinTest1/api/middleware"
+	"GinTest1/db"
 	"GinTest1/log"
+	"GinTest1/repository"
 	"GinTest1/usecase"
 
 	"github.com/gin-gonic/gin"
@@ -20,4 +22,7 @@ func SetUp(gin *gin.Engine) {
 	apiRouter := gin.Group("api/v1")
 	apiRouter.Use(middleware.IpMiddleware())
 	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
+
+	testDb := db.Postgre{}.GetGormDb("host=localhost user=admin password=1234 dbname=testDb port=5432", fileLogger)
+	controller.NewCarController(usecase.NewCarUsecase(*repository.NewCarRepository(testDb)), fileLogger, apiRouter)
 }

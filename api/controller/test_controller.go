@@ -12,11 +12,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type Car struct {
-	Id   int `gorm:"primaryKey"`
-	Name string
-}
-
 type TestController struct {
 	testUsecase domain.TestUseCase
 	fileLogger  *zap.Logger
@@ -47,7 +42,7 @@ func (controller *TestController) getTest(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, "AAAA")
 	}
 
-	var car Car
+	var car domain.Car
 	db.First(&car, 1)
 
 	ctx.JSON(http.StatusOK, controller.testUsecase.GetTest())
