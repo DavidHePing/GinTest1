@@ -13,6 +13,25 @@ definitions:
 info:
   contact: {}
 paths:
+  /car/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - car
   /test:
     get:
       consumes:

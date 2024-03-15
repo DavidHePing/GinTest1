@@ -7,10 +7,6 @@ type Car struct {
 	IsDeleted bool
 }
 
-func (Car) TableName() string {
-	return "test_cars"
-}
-
 type CarRepository interface {
 	GetCar(carId int) Car
 }

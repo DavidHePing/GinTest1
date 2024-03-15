@@ -15,7 +15,7 @@ func NewCarRepository(db *gorm.DB) *CarRepository {
 }
 
 func (repo *CarRepository) GetCar(carId int) domain.Car {
-	var car domain.Car
+	car := domain.Car{Id: carId}
 	repo.db.Find(&car)
 
 	return car
