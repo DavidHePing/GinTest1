@@ -8,7 +8,7 @@ import (
 
 func main() {
 	gin := gin.Default()
-	setup.SetUp(gin)
+	setup.Setup(gin)
 
 	setup.GracefulShutdown(gin)
 }
