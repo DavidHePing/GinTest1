@@ -8,10 +8,8 @@ import (
 	"GinTest1/log"
 	"GinTest1/repository"
 	"GinTest1/usecase"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 )
 
 func Setup(gin *gin.Engine) {
@@ -25,13 +23,7 @@ func Setup(gin *gin.Engine) {
 	apiRouter.Use(middleware.IpMiddleware())
 	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
 
-	ViperSetup()
-	dbHost := viper.GetString("database.host")
-	dbPort := viper.GetString("database.port")
-	dbUser := viper.GetString("database.user")
-	dbPass := viper.GetString("database.pass")
-	dbName := viper.GetString("database.name")
-	connection := fmt.Sprint("host=", dbHost, " port=", dbPort, " user=", dbUser, " password=", dbPass, " dbname=", dbName)
-	testDb := db.Postgre{}.GetGormDb(connection, fileLogger)
+	config := ViperSetup()
+	testDb := db.Postgre{}.GetGormDb(config.TestDb.GetGormPostgreConnectString(), fileLogger)
 	controller.NewCarController(usecase.NewCarUsecase(*repository.NewCarRepository(testDb)), fileLogger, apiRouter)
 }
