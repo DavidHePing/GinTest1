@@ -21,7 +21,8 @@ func Setup(gin *gin.Engine) {
 
 	apiRouter := gin.Group("api/v1")
 	apiRouter.Use(middleware.IpMiddleware())
-	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
+	// controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
+	InitializeDependencyInjection(apiRouter)
 
 	config := ViperSetup()
 	testDb := db.Postgre{}.GetGormDb(config.TestDb.GetGormPostgreConnectString(), fileLogger)

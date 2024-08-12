@@ -17,7 +17,7 @@ type TestController struct {
 	fileLogger  *zap.Logger
 }
 
-func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, router *gin.RouterGroup) {
+func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, router *gin.RouterGroup) *TestController {
 	controller := &TestController{testUsecase: testUseCase, fileLogger: logger}
 
 	router.GET("/test", controller.getTest)
@@ -25,6 +25,7 @@ func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, route
 	router.POST("/test", controller.postTest)
 	router.PATCH("/test/:id", controller.patchTest)
 	router.DELETE("/test/:id", controller.deleteTest)
+	return controller
 }
 
 // @Schemes
