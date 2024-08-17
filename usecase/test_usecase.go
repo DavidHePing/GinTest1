@@ -8,9 +8,6 @@ import (
 type testUsecase struct {
 }
 
-// Ensure that testUsecase implements domain.TestUseCase
-var _ domain.TestUseCase = &testUsecase{}
-
 func NewTestUseCase() *testUsecase {
 	return &testUsecase{}
 }

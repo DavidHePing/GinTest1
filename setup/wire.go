@@ -17,5 +17,5 @@ var testControllerSet = wire.NewSet(
 
 func InitializeDependencyInjection(apiRouter *gin.RouterGroup) *controller.TestController {
 	wire.Build(testControllerSet)
-	return &controller.TestController{}
+	return nil
 }
