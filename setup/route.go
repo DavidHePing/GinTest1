@@ -19,6 +19,9 @@ func Setup(gin *gin.Engine) {
 	http.SwaggerRouter(router)
 	http.HealthRouter(router)
 
+	e := InitializeEvent()
+	e.Start()
+
 	apiRouter := gin.Group("api/v1")
 	apiRouter.Use(middleware.IpMiddleware())
 	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
