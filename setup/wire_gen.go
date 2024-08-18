@@ -7,50 +7,16 @@
 package setup
 
 import (
-	"GinTest1/log"
-	"fmt"
+	"GinTest1/api/controller"
+	"GinTest1/usecase"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 // Injectors from wire.go:
 
-func InitializeEvent() Event {
-	message := NewMessage()
-	greeter := NewGreeter(message)
-	event := NewEvent(greeter)
-	return event
-}
-
-// wire.go:
-
-type Message string
-
-func NewMessage() Message {
-	return Message("Hi there!")
-}
-
-func NewGreeter(m Message) Greeter {
-	return Greeter{Message: m}
-}
-
-func (g Greeter) Greet() Message {
-	return g.Message
-}
-
-type Greeter struct {
-	Message Message // <- adding a Message field
-}
-
-func NewEvent(g Greeter) Event {
-	return Event{Greeter: g}
-}
-
-type Event struct {
-	Greeter Greeter // <- adding a Greeter field
-}
-
-func (e Event) Start() {
-	msg := e.Greeter.Greet()
-	fmt.Println(msg)
-	fileLogger := log.InitLogger()
-	fileLogger.Info(string(msg))
+func InitializeController(logger *zap.Logger, router *gin.RouterGroup) *controller.TestController {
+	testUsecase := usecase.NewTestUseCase()
+	testController := controller.NewTestController(testUsecase, logger, router)
+	return testController
 }
