@@ -52,7 +52,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Car"
+                            "$ref": "#/definitions/request.CarRequest"
                         }
                     }
                 ],
@@ -147,7 +147,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Car"
+                            "$ref": "#/definitions/request.CarRequest"
                         }
                     }
                 ],
@@ -309,23 +309,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "domain.Car": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "number"
-                },
-                "type": {
-                    "type": "string"
-                }
-            }
-        },
         "domain.TestModel": {
             "type": "object",
             "required": [
@@ -339,6 +322,20 @@ const docTemplate = `{
                 "Number": {
                     "description": "cannot be default if required",
                     "type": "integer"
+                }
+            }
+        },
+        "request.CarRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "type": {
+                    "type": "string"
                 }
             }
         }

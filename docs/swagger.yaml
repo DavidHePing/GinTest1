@@ -1,15 +1,4 @@
 definitions:
-  domain.Car:
-    properties:
-      id:
-        type: integer
-      name:
-        type: string
-      price:
-        type: number
-      type:
-        type: string
-    type: object
   domain.TestModel:
     properties:
       Name:
@@ -20,6 +9,15 @@ definitions:
     required:
     - Name
     - Number
+    type: object
+  request.CarRequest:
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+      type:
+        type: string
     type: object
 info:
   contact: {}
@@ -46,7 +44,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/domain.Car'
+          $ref: '#/definitions/request.CarRequest'
       produces:
       - application/json
       responses:
@@ -107,7 +105,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/domain.Car'
+          $ref: '#/definitions/request.CarRequest'
       produces:
       - application/json
       responses:

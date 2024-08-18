@@ -1,6 +1,7 @@
 package controller
 
 import (
+	request "GinTest1/api/Request"
 	"GinTest1/domain"
 	"net/http"
 	"strconv"
@@ -56,10 +57,10 @@ func (controller *CarController) getCar(ctx *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {string} Create car
-// @Param request body domain.Car true "Request"
+// @Param request body request.CarRequest true "Request"
 // @Router /car [post]
 func (controller *CarController) createCar(ctx *gin.Context) {
-	var request domain.Car
+	var request request.CarRequest
 
 	err := ctx.ShouldBind(&request)
 	if err != nil {
@@ -67,7 +68,7 @@ func (controller *CarController) createCar(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, controller.carUsecase.CreateCar(request))
+	ctx.JSON(http.StatusOK, controller.carUsecase.CreateCar(request.ToCar()))
 }
 
 // @Schemes
@@ -76,7 +77,7 @@ func (controller *CarController) createCar(ctx *gin.Context) {
 // @Produce json
 // @Param id path int true "Id"
 // @Success 200 {string} Update car by id
-// @Param request body domain.Car true "Request"
+// @Param request body request.CarRequest true "Request"
 // @Router /car/{id} [patch]
 func (controller *CarController) updateCar(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
@@ -86,7 +87,7 @@ func (controller *CarController) updateCar(ctx *gin.Context) {
 		return
 	}
 
-	var request domain.Car
+	var request request.CarRequest
 
 	err = ctx.ShouldBind(&request)
 	if err != nil {
@@ -94,7 +95,7 @@ func (controller *CarController) updateCar(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, controller.carUsecase.UpdateCar(id, request))
+	ctx.JSON(http.StatusOK, controller.carUsecase.UpdateCar(id, request.ToCar()))
 }
 
 // @Schemes

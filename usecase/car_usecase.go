@@ -23,12 +23,12 @@ func (usecase carUsecase) GetCar(carId int) domain.Car {
 }
 
 // CreateCar implements domain.CarUseCase.
-func (usecase *carUsecase) CreateCar(car domain.Car) bool {
+func (usecase *carUsecase) CreateCar(car *domain.Car) bool {
 	return usecase.carRepository.CreateCar(car)
 }
 
 // UpdateCar implements domain.CarUseCase.
-func (usecase *carUsecase) UpdateCar(carId int, car domain.Car) bool {
+func (usecase *carUsecase) UpdateCar(carId int, car *domain.Car) bool {
 	return usecase.carRepository.UpdateCar(carId, car)
 }
 

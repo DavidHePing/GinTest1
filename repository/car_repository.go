@@ -31,8 +31,8 @@ func (repo *CarRepository) GetCar(carId int) domain.Car {
 }
 
 // CreateCar implements domain.CarRepository.
-func (repo *CarRepository) CreateCar(car domain.Car) bool {
-	result := repo.db.Omit("Id").Create(&car)
+func (repo *CarRepository) CreateCar(car *domain.Car) bool {
+	result := repo.db.Omit("Id").Create(car)
 
 	if result.Error != nil {
 		fmt.Println(result.Error)
@@ -43,9 +43,9 @@ func (repo *CarRepository) CreateCar(car domain.Car) bool {
 }
 
 // UpdateCar implements domain.CarRepository.
-func (repo *CarRepository) UpdateCar(carId int, car domain.Car) bool {
+func (repo *CarRepository) UpdateCar(carId int, car *domain.Car) bool {
 	car.Id = carId
-	repo.db.Omit("Id").Save(&car)
+	repo.db.Omit("Id").Save(car)
 	return true
 }
 
