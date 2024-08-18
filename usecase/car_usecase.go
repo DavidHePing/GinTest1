@@ -2,14 +2,13 @@ package usecase
 
 import (
 	"GinTest1/domain"
-	"GinTest1/repository"
 )
 
 type carUsecase struct {
-	carRepository repository.CarRepository
+	carRepository domain.CarRepository
 }
 
-func NewCarUsecase(repo repository.CarRepository) *carUsecase {
+func NewCarUsecase(repo domain.CarRepository) *carUsecase {
 	return &carUsecase{carRepository: repo}
 }
 

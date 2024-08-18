@@ -25,5 +25,5 @@ func Setup(gin *gin.Engine) {
 
 	config := ViperSetup()
 	testDb := db.Postgre{}.GetGormDb(config.TestDb.GetGormPostgreConnectString(), fileLogger)
-	controller.NewCarController(usecase.NewCarUsecase(*repository.NewCarRepository(testDb)), fileLogger, apiRouter)
+	controller.NewCarController(usecase.NewCarUsecase(repository.NewCarRepository(testDb)), fileLogger, apiRouter)
 }
