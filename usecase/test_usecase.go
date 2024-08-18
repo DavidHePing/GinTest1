@@ -5,27 +5,27 @@ import (
 	"fmt"
 )
 
-type TestUsecase struct {
+type testUsecase struct {
 }
 
-func NewTestUseCase() *TestUsecase {
-	return &TestUsecase{}
+func NewTestUseCase() *testUsecase {
+	return &testUsecase{}
 }
 
-func (*TestUsecase) GetTest() string {
+func (*testUsecase) GetTest() string {
 	return "Test Get"
 }
-func (*TestUsecase) GetTestById(id int) string {
+func (*testUsecase) GetTestById(id int) string {
 	return fmt.Sprint("Test Get id = ", id)
 }
-func (*TestUsecase) PostTest(testModel domain.TestModel) string {
+func (*testUsecase) PostTest(testModel domain.TestModel) string {
 	return fmt.Sprint("Test Post ", testModel)
 }
 
-func (*TestUsecase) PatchTest(id int, testModel domain.TestModel) string {
+func (*testUsecase) PatchTest(id int, testModel domain.TestModel) string {
 	return fmt.Sprint("Test Patch id = ", id, " Body is: ", testModel)
 }
 
-func (*TestUsecase) DeleteTest(id int) string {
+func (*testUsecase) DeleteTest(id int) string {
 	return fmt.Sprint("Test Delete id = ", id)
 }
