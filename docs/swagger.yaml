@@ -10,14 +10,26 @@ definitions:
     - Name
     - Number
     type: object
+  enum.CarType:
+    enum:
+    - 1
+    - 2
+    type: integer
+    x-enum-varnames:
+    - US
+    - Japan
   request.CarRequest:
     properties:
-      name:
+      Name:
         type: string
-      price:
+      Price:
         type: number
-      type:
-        type: string
+      Type:
+        $ref: '#/definitions/enum.CarType'
+    required:
+    - Name
+    - Price
+    - Type
     type: object
 info:
   contact: {}

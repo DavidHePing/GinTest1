@@ -325,17 +325,33 @@ const docTemplate = `{
                 }
             }
         },
+        "enum.CarType": {
+            "type": "integer",
+            "enum": [
+                1,
+                2
+            ],
+            "x-enum-varnames": [
+                "US",
+                "Japan"
+            ]
+        },
         "request.CarRequest": {
             "type": "object",
+            "required": [
+                "Name",
+                "Price",
+                "Type"
+            ],
             "properties": {
-                "name": {
+                "Name": {
                     "type": "string"
                 },
-                "price": {
+                "Price": {
                     "type": "number"
                 },
-                "type": {
-                    "type": "string"
+                "Type": {
+                    "$ref": "#/definitions/enum.CarType"
                 }
             }
         }
