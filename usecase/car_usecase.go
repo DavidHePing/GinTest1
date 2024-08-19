@@ -12,12 +12,12 @@ func NewCarUsecase(repo domain.CarRepository) *carUsecase {
 	return &carUsecase{carRepository: repo}
 }
 
-func (usecase carUsecase) GetAllCar() []domain.Car {
+func (usecase carUsecase) GetAllCar() []*domain.Car {
 	cars := usecase.carRepository.GetAllCar()
 	return cars
 }
 
-func (usecase carUsecase) GetCar(carId int) domain.Car {
+func (usecase carUsecase) GetCar(carId int) *domain.Car {
 	car := usecase.carRepository.GetCar(carId)
 	return car
 }
@@ -33,6 +33,6 @@ func (usecase *carUsecase) UpdateCar(carId int, car *domain.Car) bool {
 }
 
 // DeleteCar implements domain.CarUseCase.
-func (usecase *carUsecase) DeleteCar(carId int) domain.Car {
+func (usecase *carUsecase) DeleteCar(carId int) *domain.Car {
 	return usecase.carRepository.DeleteCar(carId)
 }

@@ -8,17 +8,17 @@ type Car struct {
 }
 
 type CarRepository interface {
-	GetAllCar() []Car
-	GetCar(carId int) Car
+	GetAllCar() []*Car
+	GetCar(carId int) *Car
 	CreateCar(car *Car) bool
 	UpdateCar(carId int, car *Car) bool
-	DeleteCar(carId int) Car
+	DeleteCar(carId int) *Car
 }
 
 type CarUseCase interface {
-	GetAllCar() []Car
-	GetCar(carId int) Car
+	GetAllCar() []*Car
+	GetCar(carId int) *Car
 	CreateCar(car *Car) bool
 	UpdateCar(carId int, car *Car) bool
-	DeleteCar(carId int) Car
+	DeleteCar(carId int) *Car
 }

@@ -16,18 +16,18 @@ func NewCarRepository(db *gorm.DB) *CarRepository {
 	return &CarRepository{db: db}
 }
 
-func (repo *CarRepository) GetAllCar() []domain.Car {
-	var cars = []domain.Car{}
+func (repo *CarRepository) GetAllCar() []*domain.Car {
+	var cars = []*domain.Car{}
 	repo.db.Where("deleted_at is null").Find(&cars)
 
 	return cars
 }
 
-func (repo *CarRepository) GetCar(carId int) domain.Car {
+func (repo *CarRepository) GetCar(carId int) *domain.Car {
 	car := domain.Car{Id: carId}
 	repo.db.Find(&car, carId)
 
-	return car
+	return &car
 }
 
 // CreateCar implements domain.CarRepository.
@@ -50,8 +50,8 @@ func (repo *CarRepository) UpdateCar(carId int, car *domain.Car) bool {
 }
 
 // DeleteCar implements domain.CarRepository.
-func (repo *CarRepository) DeleteCar(carId int) domain.Car {
+func (repo *CarRepository) DeleteCar(carId int) *domain.Car {
 	car := domain.Car{Id: carId}
 	repo.db.Clauses(clause.Returning{}).Delete(&car)
-	return car
+	return &car
 }
