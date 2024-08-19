@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"GinTest1/domain"
+	"sort"
 )
 
 type carUsecase struct {
@@ -14,6 +15,9 @@ func NewCarUsecase(repo domain.CarRepository) *carUsecase {
 
 func (usecase carUsecase) GetAllCar() []*domain.Car {
 	cars := usecase.carRepository.GetAllCar()
+	sort.Slice(cars, func(i, j int) bool {
+		return cars[i].Id < cars[j].Id
+	})
 	return cars
 }
 
