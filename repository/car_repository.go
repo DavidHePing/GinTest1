@@ -24,7 +24,7 @@ func (repo *CarRepository) GetAllCar() []*domain.Car {
 }
 
 func (repo *CarRepository) GetCar(carId int) *domain.Car {
-	car := domain.Car{Id: carId}
+	car := domain.Car{}
 	repo.db.Find(&car, carId)
 
 	return &car
