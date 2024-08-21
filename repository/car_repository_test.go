@@ -2,30 +2,18 @@ package repository
 
 import (
 	"GinTest1/domain"
+	"database/sql"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 func TestGetAllCar(t *testing.T) {
-	db, mock, err := sqlmock.New()
-
-	if err != nil {
-		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
-	}
-
+	mock, db, gormDB := getGormMock(t)
 	defer db.Close()
-
-	gormDB, err := gorm.Open(postgres.New(postgres.Config{
-		Conn: db,
-	}), &gorm.Config{})
-	if err != nil {
-		t.Fatalf("Failed to open gorm DB: %v", err)
-	}
 
 	mockCars := []*domain.Car{
 		{
@@ -58,22 +46,8 @@ func TestGetAllCar(t *testing.T) {
 }
 
 func TestGetCar(t *testing.T) {
-	db, mock, err := sqlmock.New()
-
-	if err != nil {
-		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
-	}
-
+	mock, db, gormDB := getGormMock(t)
 	defer db.Close()
-
-	gormDB, err := gorm.Open(postgres.New(postgres.Config{
-		Conn: db,
-	}), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info), // Enable SQL logging
-	})
-	if err != nil {
-		t.Fatalf("Failed to open gorm DB: %v", err)
-	}
 
 	mockCar := domain.Car{
 		Id:    1,
@@ -94,4 +68,23 @@ func TestGetCar(t *testing.T) {
 	assert.NoError(t, mock.ExpectationsWereMet())
 	assert.NotNil(t, car)
 	assert.Equal(t, car, &mockCar)
+}
+
+func getGormMock(t *testing.T) (mock sqlmock.Sqlmock, db *sql.DB, gormDB *gorm.DB) {
+	db, mock, err := sqlmock.New()
+
+	if err != nil {
+		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
+	}
+
+	gormDB, err = gorm.Open(postgres.New(postgres.Config{
+		Conn: db,
+	}), &gorm.Config{
+		// Logger: logger.Default.LogMode(logger.Info),
+	})
+	if err != nil {
+		t.Fatalf("Failed to open gorm DB: %v", err)
+	}
+
+	return
 }
