@@ -31,15 +31,14 @@ func (repo *CarRepository) GetCar(carId int) *domain.Car {
 }
 
 // CreateCar implements domain.CarRepository.
-func (repo *CarRepository) CreateCar(car *domain.Car) bool {
+func (repo *CarRepository) CreateCar(car *domain.Car) *domain.Car {
 	result := repo.db.Omit("Id").Create(car)
 
 	if result.Error != nil {
 		fmt.Println(result.Error)
 	}
 
-	fmt.Println(result.Statement)
-	return true
+	return car
 }
 
 // UpdateCar implements domain.CarRepository.

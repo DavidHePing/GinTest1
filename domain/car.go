@@ -10,7 +10,7 @@ type Car struct {
 type CarRepository interface {
 	GetAllCar() []*Car
 	GetCar(carId int) *Car
-	CreateCar(car *Car) bool
+	CreateCar(car *Car) *Car
 	UpdateCar(carId int, car *Car) bool
 	DeleteCar(carId int) *Car
 }
@@ -18,7 +18,7 @@ type CarRepository interface {
 type CarUseCase interface {
 	GetAllCar() []*Car
 	GetCar(carId int) *Car
-	CreateCar(car *Car) bool
+	CreateCar(car *Car) *Car
 	UpdateCar(carId int, car *Car) bool
 	DeleteCar(carId int) *Car
 }
