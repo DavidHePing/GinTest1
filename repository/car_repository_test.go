@@ -35,7 +35,7 @@ func TestGetAllCar(t *testing.T) {
 		AddRow(mockCars[0].Id, mockCars[0].Name, mockCars[0].Price, mockCars[0].Type).
 		AddRow(mockCars[1].Id, mockCars[1].Name, mockCars[1].Price, mockCars[1].Type)
 
-	mock.ExpectQuery("SELECT \\* FROM \"cars\" WHERE deleted_at is null").
+	mock.ExpectQuery(`SELECT \* FROM "cars" WHERE deleted_at is null`).
 		WillReturnRows(rows)
 	repo := NewCarRepository(gormDB)
 	car := repo.GetAllCar()
@@ -60,7 +60,7 @@ func TestGetCar(t *testing.T) {
 	rows := sqlmock.NewRows(([]string{"id", "name", "price", "type"})).
 		AddRow(mockCar.Id, mockCar.Name, mockCar.Price, mockCar.Type)
 
-	mock.ExpectQuery("SELECT \\* FROM \"cars\" WHERE \"cars\".\"id\" = \\$?").
+	mock.ExpectQuery(`SELECT \* FROM "cars" WHERE "cars"."id" = \$?`).
 		WithArgs(1).
 		WillReturnRows(rows)
 	repo := NewCarRepository(gormDB)
