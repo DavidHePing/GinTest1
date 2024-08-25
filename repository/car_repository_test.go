@@ -71,7 +71,7 @@ func TestGetCar(t *testing.T) {
 	assert.Equal(t, car, &mockCar)
 }
 
-func TestCreate(t *testing.T) {
+func TestCreateCar(t *testing.T) {
 	mock, db, gormDB := getGormMock(t)
 	defer db.Close()
 
@@ -102,6 +102,42 @@ func TestCreate(t *testing.T) {
 	repo := NewCarRepository(gormDB)
 	car := repo.CreateCar(&domain.Car{
 		Name:  "Tesla",
+		Price: 100,
+		Type:  "US",
+	})
+
+	assert.NoError(t, mock.ExpectationsWereMet())
+	assert.NotNil(t, car)
+	assert.Equal(t, car, &mockCar)
+}
+
+func TestUpdateCar(t *testing.T) {
+	mock, db, gormDB := getGormMock(t)
+	defer db.Close()
+
+	// Set up the mock car object
+	mockCar := domain.Car{
+		Id:    1,
+		Name:  "Tesla1",
+		Price: 100,
+		Type:  "US",
+	}
+
+	// Expect a transaction to begin
+	mock.ExpectBegin()
+
+	// Use a regular expression to match the parameterized query
+	mock.ExpectExec(`UPDATE "cars" SET "name"=\$1,"price"=\$2,"type"=\$3 WHERE "id" = \$4`).
+		WithArgs("Tesla1", 100.0, "US", 1).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+
+	// Expect the transaction to commit
+	mock.ExpectCommit()
+
+	// Initialize the repository and call UpdateCar
+	repo := NewCarRepository(gormDB)
+	car := repo.UpdateCar(1, &domain.Car{
+		Name:  "Tesla1",
 		Price: 100,
 		Type:  "US",
 	})
