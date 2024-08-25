@@ -42,10 +42,10 @@ func (repo *CarRepository) CreateCar(car *domain.Car) *domain.Car {
 }
 
 // UpdateCar implements domain.CarRepository.
-func (repo *CarRepository) UpdateCar(carId int, car *domain.Car) bool {
+func (repo *CarRepository) UpdateCar(carId int, car *domain.Car) *domain.Car {
 	car.Id = carId
 	repo.db.Omit("Id").Save(car)
-	return true
+	return car
 }
 
 // DeleteCar implements domain.CarRepository.

@@ -32,7 +32,7 @@ func (usecase *carUsecase) CreateCar(car *domain.Car) *domain.Car {
 }
 
 // UpdateCar implements domain.CarUseCase.
-func (usecase *carUsecase) UpdateCar(carId int, car *domain.Car) bool {
+func (usecase *carUsecase) UpdateCar(carId int, car *domain.Car) *domain.Car {
 	return usecase.carRepository.UpdateCar(carId, car)
 }
 
