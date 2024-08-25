@@ -2,7 +2,6 @@ package repository
 
 import (
 	"GinTest1/domain"
-	"fmt"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -32,11 +31,7 @@ func (repo *CarRepository) GetCar(carId int) *domain.Car {
 
 // CreateCar implements domain.CarRepository.
 func (repo *CarRepository) CreateCar(car *domain.Car) *domain.Car {
-	result := repo.db.Omit("Id").Create(car)
-
-	if result.Error != nil {
-		fmt.Println(result.Error)
-	}
+	repo.db.Omit("Id").Create(car)
 
 	return car
 }
