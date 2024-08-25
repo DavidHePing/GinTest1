@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func TestGetAllCar(t *testing.T) {
@@ -70,6 +71,46 @@ func TestGetCar(t *testing.T) {
 	assert.Equal(t, car, &mockCar)
 }
 
+func TestCreate(t *testing.T) {
+	mock, db, gormDB := getGormMock(t)
+	defer db.Close()
+
+	// Set up the mock car object
+	mockCar := domain.Car{
+		Id:    1,
+		Name:  "Tesla",
+		Price: 100,
+		Type:  "US",
+	}
+
+	// Create mock rows that match the expected query result
+	rows := sqlmock.NewRows([]string{"id", "name", "price", "type"}).
+		AddRow(mockCar.Id, mockCar.Name, mockCar.Price, mockCar.Type)
+
+	// Expect a transaction to begin
+	mock.ExpectBegin()
+
+	// Use a regular expression to match the parameterized query
+	mock.ExpectQuery(`INSERT INTO "cars" \("name","price","type"\) VALUES \(\$1,\$2,\$3\) RETURNING "id"`).
+		WithArgs("Tesla", 100.0, "US").
+		WillReturnRows(rows)
+
+	// Expect the transaction to commit
+	mock.ExpectCommit()
+
+	// Initialize the repository and call CreateCar
+	repo := NewCarRepository(gormDB)
+	car := repo.CreateCar(&domain.Car{
+		Name:  "Tesla",
+		Price: 100,
+		Type:  "US",
+	})
+
+	assert.NoError(t, mock.ExpectationsWereMet())
+	assert.NotNil(t, car)
+	assert.Equal(t, car, &mockCar)
+}
+
 func getGormMock(t *testing.T) (mock sqlmock.Sqlmock, db *sql.DB, gormDB *gorm.DB) {
 	db, mock, err := sqlmock.New()
 
@@ -80,7 +121,7 @@ func getGormMock(t *testing.T) (mock sqlmock.Sqlmock, db *sql.DB, gormDB *gorm.D
 	gormDB, err = gorm.Open(postgres.New(postgres.Config{
 		Conn: db,
 	}), &gorm.Config{
-		// Logger: logger.Default.LogMode(logger.Info),
+		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
 		t.Fatalf("Failed to open gorm DB: %v", err)
