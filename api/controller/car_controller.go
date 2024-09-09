@@ -5,17 +5,22 @@ import (
 	"GinTest1/domain"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/patrickmn/go-cache"
 	"go.uber.org/zap"
 )
 
 type CarController struct {
 	carUsecase domain.CarUseCase
+	cache      *cache.Cache
 }
 
-func NewCarController(carUsecase domain.CarUseCase, logger *zap.Logger, router *gin.RouterGroup) {
-	controller := &CarController{carUsecase: carUsecase}
+func NewCarController(carUsecase domain.CarUseCase, logger *zap.Logger,
+	router *gin.RouterGroup, cache *cache.Cache) {
+
+	controller := &CarController{carUsecase: carUsecase, cache: cache}
 
 	router.GET("/car", controller.getAllCar)
 	router.GET("/car/:id", controller.getCar)
@@ -31,7 +36,14 @@ func NewCarController(carUsecase domain.CarUseCase, logger *zap.Logger, router *
 // @Success 200 {string} Get all car
 // @Router /car [get]
 func (controller *CarController) getAllCar(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, controller.carUsecase.GetAllCar())
+	if x, found := controller.cache.Get("getAllCar"); found {
+		ctx.JSON(http.StatusOK, x)
+		return
+	}
+
+	cars := controller.carUsecase.GetAllCar()
+	controller.cache.Set("getAllCar", cars, 10*time.Second)
+	ctx.JSON(http.StatusOK, cars)
 }
 
 // @Schemes

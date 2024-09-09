@@ -8,8 +8,10 @@ import (
 	"GinTest1/log"
 	"GinTest1/repository"
 	"GinTest1/usecase"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/patrickmn/go-cache"
 )
 
 func Setup(gin *gin.Engine) {
@@ -25,5 +27,6 @@ func Setup(gin *gin.Engine) {
 
 	config := ViperSetup()
 	testDb := db.Postgre{}.GetGormDb(config.TestDb.GetGormPostgreConnectString(), fileLogger)
-	controller.NewCarController(usecase.NewCarUsecase(repository.NewCarRepository(testDb)), fileLogger, apiRouter)
+	controller.NewCarController(usecase.NewCarUsecase(repository.NewCarRepository(testDb)),
+		fileLogger, apiRouter, cache.New(5*time.Minute, 10*time.Minute))
 }
