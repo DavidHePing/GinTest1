@@ -3,6 +3,7 @@ package controller
 import (
 	request "GinTest1/api/Request"
 	"GinTest1/domain"
+	"GinTest1/usecase"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -14,11 +15,11 @@ import (
 )
 
 type CarController struct {
-	carUsecase domain.CarUseCase
+	carUsecase usecase.CarUseCase
 	cache      *cache.Cache
 }
 
-func NewCarController(carUsecase domain.CarUseCase, logger *zap.Logger,
+func NewCarController(carUsecase usecase.CarUseCase, logger *zap.Logger,
 	router *gin.RouterGroup, cache *cache.Cache) {
 
 	controller := &CarController{carUsecase: carUsecase, cache: cache}

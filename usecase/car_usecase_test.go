@@ -109,7 +109,7 @@ func TestDeleteCar(t *testing.T) {
 	assert.Equal(t, &mockCar, car)
 }
 
-func getCarUseCase(t *testing.T) (domain.CarUseCase, *mocks.MockCarRepository) {
+func getCarUseCase(t *testing.T) (CarUseCase, *mocks.MockCarRepository) {
 	ctrl := gomock.NewController(t)
 
 	carRepo := mocks.NewMockCarRepository(ctrl)

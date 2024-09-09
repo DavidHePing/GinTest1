@@ -5,6 +5,14 @@ import (
 	"sort"
 )
 
+type CarUseCase interface {
+	GetAllCar() []*domain.Car
+	GetCar(carId int) *domain.Car
+	CreateCar(car *domain.Car) *domain.Car
+	UpdateCar(carId int, car *domain.Car) *domain.Car
+	DeleteCar(carId int) *domain.Car
+}
+
 type carUsecase struct {
 	carRepository domain.CarRepository
 }

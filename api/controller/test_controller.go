@@ -2,6 +2,7 @@ package controller
 
 import (
 	"GinTest1/domain"
+	"GinTest1/usecase"
 	"log"
 	"net/http"
 	"strconv"
@@ -13,11 +14,11 @@ import (
 )
 
 type TestController struct {
-	testUsecase domain.TestUseCase
+	testUsecase usecase.TestUseCase
 	fileLogger  *zap.Logger
 }
 
-func NewTestController(testUseCase domain.TestUseCase, logger *zap.Logger, router *gin.RouterGroup) {
+func NewTestController(testUseCase usecase.TestUseCase, logger *zap.Logger, router *gin.RouterGroup) {
 	controller := &TestController{testUsecase: testUseCase, fileLogger: logger}
 
 	router.GET("/test", controller.getTest)

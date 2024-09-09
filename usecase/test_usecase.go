@@ -5,6 +5,14 @@ import (
 	"fmt"
 )
 
+type TestUseCase interface {
+	GetTest() string
+	GetTestById(id int) string
+	PostTest(testModel domain.TestModel) string
+	PatchTest(id int, testModel domain.TestModel) string
+	DeleteTest(id int) string
+}
+
 type testUsecase struct {
 }
 
