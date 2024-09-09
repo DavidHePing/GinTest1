@@ -3,6 +3,7 @@ package controller
 import (
 	request "GinTest1/api/Request"
 	"GinTest1/domain"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -36,8 +37,8 @@ func NewCarController(carUsecase domain.CarUseCase, logger *zap.Logger,
 // @Success 200 {string} Get all car
 // @Router /car [get]
 func (controller *CarController) getAllCar(ctx *gin.Context) {
-	if x, found := controller.cache.Get("getAllCar"); found {
-		ctx.JSON(http.StatusOK, x)
+	if cars, found := controller.cache.Get("getAllCar"); found {
+		ctx.JSON(http.StatusOK, cars)
 		return
 	}
 
@@ -61,7 +62,15 @@ func (controller *CarController) getCar(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, controller.carUsecase.GetCar(carId))
+	cacheKey := fmt.Sprintf("getAllCar:%d", carId)
+	if car, found := controller.cache.Get(cacheKey); found {
+		ctx.JSON(http.StatusOK, car)
+		return
+	}
+
+	car := controller.carUsecase.GetCar(carId)
+	controller.cache.Set(cacheKey, car, 10*time.Second)
+	ctx.JSON(http.StatusOK, car)
 }
 
 // @Schemes
