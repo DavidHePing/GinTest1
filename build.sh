@@ -1,3 +1,5 @@
+set -x
+
 DockerHubUrl="localhost:5000"
 Tag=$1
 
