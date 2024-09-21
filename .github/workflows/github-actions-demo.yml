@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: CD 🚀
+name: GitHub Actions CD
+run-name: CD Flow 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
