@@ -13,6 +13,7 @@ jobs:
   deploy:
     name: Pull image and deploy
     runs-on: wsl-ubuntu
+    needs: build
     steps:      
       - name: Checkout Code
         uses: actions/checkout@v3
