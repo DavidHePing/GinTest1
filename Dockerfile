@@ -26,6 +26,7 @@ WORKDIR /app
 COPY --from=builder /app/myapp .
 # Copy the config.json file
 COPY --from=builder /app/config.json .
+COPY --from=builder /app/config.dev.json .
 
 # Expose the port on which the application runs (modify as needed)
 EXPOSE 8081
