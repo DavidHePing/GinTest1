@@ -2,10 +2,9 @@ name: GitHub Actions CD
 run-name: CD Flow 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  build:
+    name: Build image and push
     runs-on: wsl-ubuntu
     steps:
-      - name: Get Workflow Run ID
-        run: echo "Workflow Run ID ${{ github.run_id }}"
-      - name: Get Workflow Run number
-        run: echo "Workflow Run ID ${{ github.run_number }}"
+      - run: chmod +x build.sh
+      - run: ./build.sh ${{ github.run_id }}
