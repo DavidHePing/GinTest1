@@ -9,5 +9,5 @@ ImageName="$DockerHubUrl/gin-test1:${Tag}"
 docker builder prune -f
 docker image prune -f
 
-docker build -t "$ImageName" &&
+docker build -t "$ImageName" . &&
 docker image push "$ImageName"
