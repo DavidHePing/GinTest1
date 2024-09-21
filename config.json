@@ -4,7 +4,7 @@
     "Port": ":8080"
   },
   "TestDb": {
-      "Host": "localhost",
+      "Host": "host.docker.internal",
       "Port": "5432",
       "User": "admin",
       "Password": "1234",
