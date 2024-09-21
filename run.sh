@@ -1,3 +1,11 @@
-docker build -t my-go-app . 
-docker rm -f go-test1
-docker run -d -p 8080:8080 --name go-test1 my-go-app 
+DockerHubUrl="localhost:5000"
+Tag=$1
+
+ImageName="$DockerHubUrl/gin-test1:${Tag}"
+
+(
+    export ImageName=$ImageName
+
+    docker-compose pull
+    docker-compose up -d
+)
