@@ -28,7 +28,7 @@ COPY --from=builder /app/myapp .
 COPY --from=builder /app/config.json .
 
 # Expose the port on which the application runs (modify as needed)
-EXPOSE 8080
+EXPOSE 8081
 
 # Command to run the application
 ENTRYPOINT  ["./myapp"]

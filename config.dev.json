@@ -1,0 +1,13 @@
+{
+  "IsDebug": true,
+  "Server": {
+    "Port": ":8081"
+  },
+  "TestDb": {
+      "Host": "host.docker.internal",
+      "Port": "5432",
+      "User": "admin",
+      "Password": "1234",
+      "Name": "testDb"
+  }
+}

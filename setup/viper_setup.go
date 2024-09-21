@@ -3,12 +3,19 @@ package setup
 import (
 	"GinTest1/domain"
 	"fmt"
+	"os"
 
 	"github.com/spf13/viper"
 )
 
 func ViperSetup() domain.Config {
-	viper.SetConfigFile("config.json")
+	env := os.Getenv("Env")
+
+	if env == "" {
+		viper.SetConfigFile("config.json")
+	} else {
+		viper.SetConfigFile("config." + env + ".json")
+	}
 
 	err := viper.ReadInConfig()
 	if err != nil {

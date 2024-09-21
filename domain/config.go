@@ -4,7 +4,12 @@ import "fmt"
 
 type Config struct {
 	IsDebug bool
+	Server  ServerInfo
 	TestDb  DbConnect
+}
+
+type ServerInfo struct {
+	Port string
 }
 
 type DbConnect struct {

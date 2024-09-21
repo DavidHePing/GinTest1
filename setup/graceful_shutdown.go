@@ -1,6 +1,7 @@
 package setup
 
 import (
+	"GinTest1/domain"
 	"context"
 	"log"
 	"net/http"
@@ -12,10 +13,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GracefulShutdown(gin *gin.Engine) {
+func GracefulShutdown(gin *gin.Engine, config domain.Config) {
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    config.Server.Port,
 		Handler: gin,
 	}
 

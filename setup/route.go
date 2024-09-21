@@ -26,7 +26,11 @@ func Setup(gin *gin.Engine) {
 	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
 
 	config := ViperSetup()
+
 	testDb := db.Postgre{}.GetGormDb(config.TestDb.GetGormPostgreConnectString(), fileLogger)
 	controller.NewCarController(usecase.NewCarUsecase(repository.NewCarRepository(testDb)),
 		fileLogger, apiRouter, cache.New(5*time.Minute, 10*time.Minute))
+
+	//GracefulShutdown, must setup after register controller
+	GracefulShutdown(gin, config)
 }
