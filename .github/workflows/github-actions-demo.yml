@@ -1,6 +1,9 @@
 name: GitHub Actions CD
 run-name: CD Flow 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - 'release/**'
 jobs:
   build:
     name: Build image and push
