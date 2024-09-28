@@ -1,11 +1,13 @@
 DockerHubUrl="localhost:5000"
 Tag=$1
 
-ImageName="$DockerHubUrl/gin-test1:${Tag}"
+helm upgrade helm-demo .
 
-(
-    export ImageName=$ImageName
+# ImageName="$DockerHubUrl/gin-test1:${Tag}"
 
-    docker-compose pull
-    docker-compose up -d
-)
+# (
+#     export ImageName=$ImageName
+
+#     docker-compose pull
+#     docker-compose up -d
+# )
