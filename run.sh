@@ -5,10 +5,9 @@ Tag=$1
 ImageName="$DockerHubUrl/gin-test1:${Tag}"
 
 (
-    export ImageName=$ImageName
-    export NodePort=30080
-    
-    helm upgrade --install gin-test1 helm-chart/
+    helm upgrade --install gin-test1 helm-chart/ \
+    --set service.nodePort=30080 \
+    --set service.imageName=$ImageName
 
     # docker-compose pull
     # docker-compose up -d

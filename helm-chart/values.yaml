@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: $ImageName
+  repository: {{ .Values.service.imageName }}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -42,7 +42,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 8080
-  nodePort: $NodePort
+  nodePort: {{ .Values.service.nodePort }}
 
 ingress:
   enabled: false
