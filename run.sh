@@ -1,7 +1,7 @@
 DockerHubUrl="localhost:5000"
 Tag=$1
 
-helm upgrade --install helm-demo2 helm-demo/
+helm upgrade --install helm-demo2 helm-chart/
 
 # ImageName="$DockerHubUrl/gin-test1:${Tag}"
 
