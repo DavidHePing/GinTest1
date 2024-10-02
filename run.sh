@@ -9,7 +9,8 @@ ImageName="$DockerHubUrl/gin-test1:${Tag}"
 
     helm upgrade --install gin-test1 helm-chart/ \
     --set service.nodePort=30080 \
-    --set image.repository=$ImageName
+    --set image.repository=$ImageName \
+    --set fullnameOverride=gin-test1
 
     # docker-compose pull
     # docker-compose up -d
