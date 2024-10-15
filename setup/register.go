@@ -15,6 +15,8 @@ func Register(apiRouter *gin.RouterGroup) {
 	// container.Provide(ViperSetup())
 	container.Provide(usecase.NewTestUseCase)
 	container.Provide(log.InitLogger)
-	container.Provide(apiRouter)
-	container.Provide(controller.NewTestController)
+	container.Provide(func() *gin.RouterGroup {
+		return apiRouter
+	})
+	container.Invoke(controller.NewTestController)
 }
