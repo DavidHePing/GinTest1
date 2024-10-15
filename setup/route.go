@@ -15,6 +15,7 @@ import (
 )
 
 func Setup(gin *gin.Engine) {
+
 	fileLogger := log.InitLogger()
 
 	router := gin.Group("")
@@ -23,7 +24,10 @@ func Setup(gin *gin.Engine) {
 
 	apiRouter := gin.Group("api/v1")
 	apiRouter.Use(middleware.IpMiddleware())
-	controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
+
+	Register(apiRouter)
+
+	// controller.NewTestController(usecase.NewTestUseCase(), fileLogger, apiRouter)
 
 	config := ViperSetup()
 
