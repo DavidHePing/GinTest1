@@ -5,9 +5,9 @@ import (
 	"GinTest1/api/http"
 	"GinTest1/api/middleware"
 	"GinTest1/db"
-	"GinTest1/log"
 	"GinTest1/repository"
 	"GinTest1/usecase"
+	"GinTest1/zapLogger"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +16,7 @@ import (
 
 func Setup(gin *gin.Engine) {
 
-	fileLogger := log.InitLogger()
+	fileLogger := zapLogger.InitLogger()
 
 	router := gin.Group("")
 	http.SwaggerRouter(router)
