@@ -16,7 +16,7 @@ type TestUseCase interface {
 type testUsecase struct {
 }
 
-func NewTestUseCase() *testUsecase {
+func NewTestUseCase() TestUseCase {
 	return &testUsecase{}
 }
 
