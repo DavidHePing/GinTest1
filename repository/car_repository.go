@@ -11,7 +11,7 @@ type CarRepository struct {
 	db *gorm.DB
 }
 
-func NewCarRepository(db *gorm.DB) *CarRepository {
+func NewCarRepository(db *gorm.DB) domain.CarRepository {
 	return &CarRepository{db: db}
 }
 

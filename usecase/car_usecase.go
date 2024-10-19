@@ -13,15 +13,15 @@ type CarUseCase interface {
 	DeleteCar(carId int) *domain.Car
 }
 
-type carUsecase struct {
+type carUseCase struct {
 	carRepository domain.CarRepository
 }
 
-func NewCarUsecase(repo domain.CarRepository) *carUsecase {
-	return &carUsecase{carRepository: repo}
+func NewCarUsecase(repo domain.CarRepository) CarUseCase {
+	return &carUseCase{carRepository: repo}
 }
 
-func (usecase carUsecase) GetAllCar() []*domain.Car {
+func (usecase carUseCase) GetAllCar() []*domain.Car {
 	cars := usecase.carRepository.GetAllCar()
 	sort.Slice(cars, func(i, j int) bool {
 		return cars[i].Id < cars[j].Id
@@ -29,22 +29,22 @@ func (usecase carUsecase) GetAllCar() []*domain.Car {
 	return cars
 }
 
-func (usecase carUsecase) GetCar(carId int) *domain.Car {
+func (usecase carUseCase) GetCar(carId int) *domain.Car {
 	car := usecase.carRepository.GetCar(carId)
 	return car
 }
 
 // CreateCar implements domain.CarUseCase.
-func (usecase *carUsecase) CreateCar(car *domain.Car) *domain.Car {
+func (usecase *carUseCase) CreateCar(car *domain.Car) *domain.Car {
 	return usecase.carRepository.CreateCar(car)
 }
 
 // UpdateCar implements domain.CarUseCase.
-func (usecase *carUsecase) UpdateCar(carId int, car *domain.Car) *domain.Car {
+func (usecase *carUseCase) UpdateCar(carId int, car *domain.Car) *domain.Car {
 	return usecase.carRepository.UpdateCar(carId, car)
 }
 
 // DeleteCar implements domain.CarUseCase.
-func (usecase *carUsecase) DeleteCar(carId int) *domain.Car {
+func (usecase *carUseCase) DeleteCar(carId int) *domain.Car {
 	return usecase.carRepository.DeleteCar(carId)
 }
