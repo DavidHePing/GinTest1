@@ -5,14 +5,14 @@ on:
     branches:
       - 'release/**'
 jobs:
-  # build:
-  #   name: Build image and push
-  #   runs-on: wsl-ubuntu
-  #   steps:      
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v3
-  #     - run: chmod +x build.sh
-  #     - run: ./build.sh ${{ github.run_id }}
+  build:
+    name: Build image and push
+    runs-on: wsl-ubuntu
+    steps:      
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - run: chmod +x build.sh
+      - run: ./build.sh ${{ github.run_id }}
   deploy:
     name: Pull image and deploy
     runs-on: wsl-ubuntu
@@ -21,4 +21,4 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
       - run: chmod +x run.sh
-      - run: ./run.sh 11131287450
+      - run: ./run.sh ${{ github.run_id }}
