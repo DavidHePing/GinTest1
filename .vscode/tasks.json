@@ -1,17 +1,12 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "open-swagger",
-        "type": "shell",
-        "command": "powershell",
-        "args": [
-          "-Command",
-          "Start-Sleep -Seconds 1; Start-Process 'http://localhost:8080/swagger/index.html'"
-        ],
-        "problemMatcher": [],
-        "isBackground": true
-      }
-    ]
-  }
-  
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "open-swagger",
+      "type": "shell",
+      "command": "Start-Sleep -Milliseconds 200; Start-Process http://localhost:8080/swagger/index.html",
+      "problemMatcher": [],
+      "isBackground": true
+    }
+  ]
+}
